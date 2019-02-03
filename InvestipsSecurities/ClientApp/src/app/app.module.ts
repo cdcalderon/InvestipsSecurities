@@ -100,6 +100,7 @@ import {CountryService} from './demo/service/countryservice';
 import {EventService} from './demo/service/eventservice';
 import {NodeService} from './demo/service/nodeservice';
 import {BreadcrumbService} from './breadcrumb.service';
+import { BullThreeArrowsComponent } from './signals/bull-three-arrows/bull-three-arrows.component';
 
 @NgModule({
     imports: [
@@ -196,7 +197,8 @@ import {BreadcrumbService} from './breadcrumb.service';
         EmptyDemoComponent,
         FileDemoComponent,
         UtilsDemoComponent,
-        DocumentationComponent
+        DocumentationComponent,
+        BullThreeArrowsComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
