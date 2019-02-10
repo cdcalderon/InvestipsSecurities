@@ -101,6 +101,7 @@ import {EventService} from './demo/service/eventservice';
 import {NodeService} from './demo/service/nodeservice';
 import {BreadcrumbService} from './breadcrumb.service';
 import { BullThreeArrowsComponent } from './signals/bull-three-arrows/bull-three-arrows.component';
+import { TvChartContainerComponent } from './tv-chart-container/tv-chart-container.component';
 
 @NgModule({
     imports: [
@@ -198,7 +199,8 @@ import { BullThreeArrowsComponent } from './signals/bull-three-arrows/bull-three
         FileDemoComponent,
         UtilsDemoComponent,
         DocumentationComponent,
-        BullThreeArrowsComponent
+        BullThreeArrowsComponent,
+        TvChartContainerComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
