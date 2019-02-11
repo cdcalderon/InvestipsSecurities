@@ -15,10 +15,12 @@ import { FileDemoComponent } from './demo/view/filedemo.component';
 import { UtilsDemoComponent } from './demo/view/utilsdemo.component';
 import { DocumentationComponent } from './demo/view/documentation.component';
 import { BullThreeArrowsComponent } from './signals/bull-three-arrows/bull-three-arrows.component';
+import { InvestipsChartPlatformComponent } from './investips-chart-platform/investips-chart-platform.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
     { path: 'bullthreearrows', component: BullThreeArrowsComponent },
+    { path: 'marketchart/:id/:marktype', component: InvestipsChartPlatformComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },

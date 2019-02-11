@@ -28,6 +28,8 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
     private _containerId: ChartingLibraryWidgetOptions['container_id'] = 'tv_chart_container';
     private _tvWidget: IChartingLibraryWidget | null = null;
 
+    @Input() marksType: string;
+
     @Input()
     set symbol(symbol: ChartingLibraryWidgetOptions['symbol']) {
         this._symbol = symbol || this._symbol;
@@ -92,8 +94,8 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
         }
 
         const widgetOptions: ChartingLibraryWidgetOptions = {
-            symbol: this._symbol,
-            datafeed: new UDFCompatibleDatafeed(this._datafeedUrl),
+            symbol: 'AAPL',
+            datafeed: new UDFCompatibleDatafeed(this._datafeedUrl, null),
             interval: this._interval,
             container_id: this._containerId,
             library_path: this._libraryPath,
