@@ -95,12 +95,19 @@ export class UDFCompatibleDatafeedBase implements IExternalDatafeed, IDatafeedQu
     private readonly _quotesPulseProvider: QuotesPulseProvider;
 
     private readonly _requester: Requester;
+    private readonly stockMarksType: string;
 
-    protected constructor(datafeedURL: string, quotesProvider: IQuotesProvider, requester: Requester, updateFrequency: number = 10 * 1000) {
+    protected constructor(
+        datafeedURL: string,
+        quotesProvider: IQuotesProvider,
+        requester: Requester,
+        updateFrequency: number = 10 * 1000,
+        stockMarksType: string = 'marks') {
         this._datafeedURL = datafeedURL;
         this._requester = requester;
         this._historyProvider = new HistoryProvider(datafeedURL, this._requester);
         this._quotesProvider = quotesProvider;
+        this.stockMarksType = stockMarksType;
 
         this._dataPulseProvider = new DataPulseProvider(this._historyProvider, updateFrequency);
         this._quotesPulseProvider = new QuotesPulseProvider(this._quotesProvider);
@@ -142,6 +149,15 @@ export class UDFCompatibleDatafeedBase implements IExternalDatafeed, IDatafeedQu
             return;
         }
 
+        let marksEndPoint = 'marks';
+
+        if (this.stockMarksType === 'gap') {
+            marksEndPoint = 'marksgaps';
+        } else if (this.stockMarksType === 'greenarrows') {
+            marksEndPoint = 'marksgreenarrows';
+        }
+
+        console.log('public getMarks');
         const requestParams: RequestParams = {
             symbol: symbolInfo.ticker !== undefined ? symbolInfo.ticker.toUpperCase() : '',
             from: startDate,
@@ -149,7 +165,7 @@ export class UDFCompatibleDatafeedBase implements IExternalDatafeed, IDatafeedQu
             resolution: resolution,
         };
 
-        this._send('marks', requestParams)
+        this._send(marksEndPoint, requestParams)
             .then((response: Mark[] | UdfDatafeedMark) => {
                 if (!Array.isArray(response)) {
                     const result: Mark[] = [];
