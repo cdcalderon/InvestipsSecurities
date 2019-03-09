@@ -16,9 +16,11 @@ import { UtilsDemoComponent } from './demo/view/utilsdemo.component';
 import { DocumentationComponent } from './demo/view/documentation.component';
 import { BullThreeArrowsComponent } from './signals/bull-three-arrows/bull-three-arrows.component';
 import { InvestipsChartPlatformComponent } from './investips-chart-platform/investips-chart-platform.component';
+import { GapsComponent } from './signals/gaps/gaps.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
+    { path: 'gapsignals', component: GapsComponent },
     { path: 'bullthreearrows', component: BullThreeArrowsComponent },
     { path: 'marketchart/:id/:marktype', component: InvestipsChartPlatformComponent },
     { path: 'sample', component: SampleDemoComponent },

@@ -22,6 +22,7 @@ export class AppMenuComponent implements OnInit {
         this.model = [
             { label: 'Dashboard', icon: 'dashboard', routerLink: ['/'] },
             { label: 'Three Arrows Signals', icon: 'arrow_upward', routerLink: ['/bullthreearrows'] },
+            { label: 'Gap Signals', icon: 'multiline_chart', routerLink: ['/gapsignals'] },
             {
                 label: 'Themes', icon: 'palette', badge: '6',
                 items: [

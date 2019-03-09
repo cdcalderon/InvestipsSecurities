@@ -105,6 +105,7 @@ import { TvChartContainerComponent } from './tv-chart-container/tv-chart-contain
 import { SignalFilterComponent } from './signal-filter/signal-filter.component';
 import { DataTableModule } from 'primeng/primeng';
 import { InvestipsChartPlatformComponent } from './investips-chart-platform/investips-chart-platform.component';
+import { GapsComponent } from './signals/gaps/gaps.component';
 
 @NgModule({
     imports: [
@@ -206,7 +207,8 @@ import { InvestipsChartPlatformComponent } from './investips-chart-platform/inve
         SignalFilterComponent,
         BullThreeArrowsComponent,
         TvChartContainerComponent,
-        InvestipsChartPlatformComponent
+        InvestipsChartPlatformComponent,
+        GapsComponent
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
