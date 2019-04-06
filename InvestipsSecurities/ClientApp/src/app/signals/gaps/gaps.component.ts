@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    Output,
+    EventEmitter
+} from "@angular/core";
 import { GapService } from "../shared/gap.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IGapSignal } from "../shared/gap-signal";
@@ -13,6 +19,7 @@ import {
     transition,
     animate
 } from "@angular/animations";
+import { RightPanelService } from "src/app/shared/services/right-panel.service";
 
 @Component({
     selector: "app-gaps",
@@ -62,9 +69,11 @@ export class GapsComponent implements OnInit {
     ];
 
     gapsQuery: any = {};
+    @Output() signalsChanged = new EventEmitter<any>();
     constructor(
         private _gapSignalsService: GapService,
-        private _router: Router
+        private _router: Router,
+        private _rightPanelService: RightPanelService
     ) {}
 
     ngOnInit() {
@@ -98,6 +107,8 @@ export class GapsComponent implements OnInit {
                     this.totalSignalsInCurrentPage = stockSignals.docs.length;
                     console.log(this.totalGaps);
                     console.log(this.groupedSignals);
+
+                    this._rightPanelService.signalsChanged(this.groupedSignals);
                 },
                 error => (this.errorMessage = <any>error)
             );
@@ -155,6 +166,7 @@ export class GapsComponent implements OnInit {
                     console.log(this.totalGaps);
                     console.log(this.groupedSignals);
 
+                    this._rightPanelService.signalsChanged(this.groupedSignals);
                     // this.groupedSignals = this.signalAppender(this.currentPage,
                     //     this.totalGaps, this.pageSize, this.groupedSignals);
                 },
