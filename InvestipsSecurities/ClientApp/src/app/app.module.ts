@@ -78,7 +78,7 @@ import { AppMenuComponent, AppSubMenuComponent } from './app.menu.component';
 import { AppTopbarComponent } from './shared/topbar/topbar.component';
 import { AppFooterComponent } from './app.footer.component';
 import { AppBreadcrumbComponent } from './app.breadcrumb.component';
-import { AppRightpanelComponent } from './app.rightpanel.component';
+import { AppRightpanelComponent } from './shared/right-panel/right-panel.component';
 import { AppInlineProfileComponent } from './app.profile.component';
 import { DashboardDemoComponent } from './demo/view/dashboarddemo.component';
 import { SampleDemoComponent } from './demo/view/sampledemo.component';
