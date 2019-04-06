@@ -1,13 +1,12 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { StockSymbolsService } from '../shared/services/stock-symbols.service';
-import { SecurityFilterCriteria } from '../shared/models/security-filter-criteria.model';
+import { Component, EventEmitter, Output, Input } from "@angular/core";
+import { SelectItem } from "primeng/primeng";
+import { StockSymbolsService } from "../shared/services/stock-symbols.service";
+import { SecurityFilterCriteria } from "../shared/models/security-filter-criteria.model";
 
-@Component
-    ({
-        selector: 'app-signal-filter',
-        templateUrl: './signal-filter.component.html'
-    })
+@Component({
+    selector: "app-signal-filter",
+    templateUrl: "./signal-filter.component.html"
+})
 export class SignalFilterComponent {
     selectedSymbols: string[] = [];
     selectedExchanges: string[] = [];
@@ -16,18 +15,17 @@ export class SignalFilterComponent {
     errorMessage: string;
     @Output() applyFilter = new EventEmitter<any>();
 
-
     exchanges: SelectItem[] = [
-        { label: 'NYSE', value: 'nyse' },
-        { label: 'NASDAQ', value: 'nasdaq' },
-        { label: 'AMEX', value: 'amex' }
+        { label: "NYSE", value: "nyse" },
+        { label: "NASDAQ", value: "nasdaq" },
+        { label: "AMEX", value: "amex" }
     ];
 
     rangeValues: number[] = [1, 1000];
     caps: SelectItem[] = [
-        { label: 'Small', value: 's' },
-        { label: 'Mid', value: 'm' },
-        { label: 'Large', value: 'l' }
+        { label: "Small", value: "s" },
+        { label: "Mid", value: "m" },
+        { label: "Large", value: "l" }
     ];
 
     filteredSymbolsMultiple: any[];
@@ -36,7 +34,7 @@ export class SignalFilterComponent {
     fromFilter: any;
     toFilter: any;
 
-    constructor(private _stockSymbolsService: StockSymbolsService) { }
+    constructor(private _stockSymbolsService: StockSymbolsService) {}
 
     filterSignals() {
         const filterCriterial: SecurityFilterCriteria = {
@@ -54,11 +52,11 @@ export class SignalFilterComponent {
 
     filterSymbolsMultiple(event) {
         this.filteredSymbolsMultiple = [];
-        this._stockSymbolsService.getSymbols(event.query)
-            .subscribe(symbols => {
+        this._stockSymbolsService.getSymbols(event.query).subscribe(
+            symbols => {
                 this.filteredSymbolsMultiple = symbols;
             },
-                error => this.errorMessage = <any>error
-            );
+            error => (this.errorMessage = <any>error)
+        );
     }
 }
