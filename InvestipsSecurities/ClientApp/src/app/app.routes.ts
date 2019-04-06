@@ -17,11 +17,13 @@ import { DocumentationComponent } from './demo/view/documentation.component';
 import { BullThreeArrowsComponent } from './signals/bull-three-arrows/bull-three-arrows.component';
 import { InvestipsChartPlatformComponent } from './investips-chart-platform/investips-chart-platform.component';
 import { GapsComponent } from './signals/gaps/gaps.component';
+import { BullStoch307Component } from './signals/bull-stoch307/bull-stoch307.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
     { path: 'gapsignals', component: GapsComponent },
     { path: 'bullthreearrows', component: BullThreeArrowsComponent },
+    { path: 'stoch307', component: BullStoch307Component },
     { path: 'marketchart/:id/:marktype', component: InvestipsChartPlatformComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },

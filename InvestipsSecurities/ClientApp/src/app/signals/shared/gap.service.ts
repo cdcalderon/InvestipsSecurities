@@ -23,9 +23,6 @@ export class GapService {
     constructor(private _http: HttpClient) { }
 
     getGapSignals(from: Date, to: Date, pagingInfo: any, gapsQuery: any): Observable<ISignalsGapInfo> {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        const params = new URLSearchParams();
         let toDate: any;
         let fromDate: any;
         if (!from || !to) {
@@ -36,7 +33,7 @@ export class GapService {
             toDate = this.monthAdd(to, 0);
         }
 
-        let dbQuery = {
+        const dbQuery = {
             query: gapsQuery,
             exchange: 'NasdaqNM',
             pagingInfo: pagingInfo,
@@ -44,7 +41,6 @@ export class GapService {
             to: toDate
         };
 
-        //  return this._http.get(this._stockEQuotesUrl, { search: params })
         return this._http.post(
             `${this._stockQuotesAndIndicatorssUrlBase}/api/gapsignals/filter`, dbQuery)
             .pipe(

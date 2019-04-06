@@ -155,6 +155,8 @@ export class UDFCompatibleDatafeedBase implements IExternalDatafeed, IDatafeedQu
             marksEndPoint = 'marksgaps';
         } else if (this.stockMarksType === 'greenarrows') {
             marksEndPoint = 'marksgreenarrows';
+        } else if (this.stockMarksType === 'stoch307bull') {
+            marksEndPoint = 'stoch307bull';
         }
 
         console.log('public getMarks');

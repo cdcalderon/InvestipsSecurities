@@ -1,19 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GapService } from '../shared/gap.service';
+import { BullStoch307Service } from '../shared/bull-stoch307.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IGapSignal } from '../shared/gap-signal';
-import { ISignalsGapInfo } from '../shared/gap-signal-info';
+import { IStoch307Signal } from '../shared/stoch307-signal.model';
+import { ISignalsStoch307Info } from '../shared/stoch307-signal-info.model';
 import * as _ from 'lodash';
 import { SelectItem, Paginator } from 'primeng/primeng';
 import { SecurityFilterCriteria } from '../../shared/models/security-filter-criteria.model';
 
 @Component({
-    selector: 'app-gaps',
-    templateUrl: './gaps.component.html',
-    styleUrls: ['./gaps.component.css']
+    selector: 'app-bull-stoch307',
+    templateUrl: './bull-stoch307.component.html',
+    styleUrls: ['./bull-stoch307.component.css']
 })
-export class GapsComponent implements OnInit {
-
+export class BullStoch307Component implements OnInit {
     @ViewChild('paginator') paginator: Paginator;
     pageSize = 25;
     currentPage = 1;
@@ -21,8 +20,8 @@ export class GapsComponent implements OnInit {
     totalGaps = 0;
     numberOfPages: number;
     errorMessage: string;
-    gapSignals: ISignalsGapInfo;
-    selectedGapSignal: IGapSignal;
+    gapSignals: ISignalsStoch307Info;
+    selectedGapSignal: IStoch307Signal;
     groupedSignals: any;
     filterCriteria: SecurityFilterCriteria;
 
@@ -33,21 +32,21 @@ export class GapsComponent implements OnInit {
     ];
 
     gapsQuery: any = {};
-    constructor(private _gapSignalsService: GapService,
+    constructor(private stoch307SignalsService: BullStoch307Service,
         private _router: Router) { }
 
     ngOnInit() {
-        let pagingInfo = {
+        const pagingInfo = {
             pageSize: this.pageSize,
             currentPage: this.currentPage
         };
 
-        this._gapSignalsService.getGapSignals(null, null, pagingInfo, {})
+        this.stoch307SignalsService.getStoch307Signals(null, null, pagingInfo, {})
             .subscribe(
                 stockSignals => {
                     this.gapSignals = stockSignals;
                     this.groupedSignals =
-                        _.orderBy(this._gapSignalsService.getGroupedSignalsBySymbol(this.gapSignals), ['close'], ['desc']);
+                        _.orderBy(this.stoch307SignalsService.getGroupedStoch307BySymbol(this.gapSignals), ['close'], ['desc']);
                     this.totalGaps = stockSignals.total;
                     this.numberOfPages = Math.ceil(stockSignals.total / this.pageSize);
                     this.totalSignalsInCurrentPage = stockSignals.docs.length;
@@ -61,7 +60,7 @@ export class GapsComponent implements OnInit {
 
     onSignalSelect(event) {
         console.log(event.data);
-        this._router.navigate(['/marketchart', event.data.symbol, 'gap']);
+        this._router.navigate(['/marketchart', event.data.symbol, 'stoch307bull']);
     }
 
     paginate(event) {
@@ -72,7 +71,7 @@ export class GapsComponent implements OnInit {
 
     navigateToChart(signal: any) {
         console.log(signal.symbol);
-        this._router.navigate(['/marketchart', signal.symbol, 'gap']);
+        this._router.navigate(['/marketchart', signal.symbol, 'stoch307bull']);
     }
 
     searchGaps(filterCriteria: SecurityFilterCriteria, source: string) {
@@ -91,12 +90,12 @@ export class GapsComponent implements OnInit {
             currentPage: this.currentPage
         };
 
-        this._gapSignalsService.getGapSignals(from, to, pagingInfo, this.gapsQuery)
+        this.stoch307SignalsService.getStoch307Signals(from, to, pagingInfo, this.gapsQuery)
             .subscribe(
                 stockSignals => {
                     this.gapSignals = stockSignals;
                     this.groupedSignals =
-                        _.orderBy(this._gapSignalsService.getGroupedSignalsBySymbol(this.gapSignals), ['close'], ['desc']);
+                        _.orderBy(this.stoch307SignalsService.getGroupedStoch307BySymbol(this.gapSignals), ['close'], ['desc']);
                     this.totalGaps = stockSignals.total;
                     this.numberOfPages = Math.ceil(stockSignals.total / this.pageSize);
                     this.totalSignalsInCurrentPage = stockSignals.docs.length;
@@ -130,7 +129,6 @@ export class GapsComponent implements OnInit {
                 queryFilter.highPriceRange = filterCriterial.highPriceRange;
             }
         }
-
         return queryFilter;
     }
 

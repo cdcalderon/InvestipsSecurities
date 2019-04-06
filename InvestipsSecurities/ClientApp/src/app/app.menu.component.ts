@@ -23,6 +23,7 @@ export class AppMenuComponent implements OnInit {
             { label: 'Dashboard', icon: 'dashboard', routerLink: ['/'] },
             { label: 'Three Arrows Signals', icon: 'arrow_upward', routerLink: ['/bullthreearrows'] },
             { label: 'Gap Signals', icon: 'multiline_chart', routerLink: ['/gapsignals'] },
+            { label: 'STOCH307', icon: 'insert_chart', routerLink: ['/stoch307'] },
             {
                 label: 'Themes', icon: 'palette', badge: '6',
                 items: [

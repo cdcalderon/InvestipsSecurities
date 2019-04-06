@@ -75,7 +75,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
 
 import { AppComponent } from './app.component';
 import { AppMenuComponent, AppSubMenuComponent } from './app.menu.component';
-import { AppTopbarComponent } from './app.topbar.component';
+import { AppTopbarComponent } from './shared/topbar/topbar.component';
 import { AppFooterComponent } from './app.footer.component';
 import { AppBreadcrumbComponent } from './app.breadcrumb.component';
 import { AppRightpanelComponent } from './app.rightpanel.component';
@@ -106,6 +106,7 @@ import { SignalFilterComponent } from './signal-filter/signal-filter.component';
 import { DataTableModule } from 'primeng/primeng';
 import { InvestipsChartPlatformComponent } from './investips-chart-platform/investips-chart-platform.component';
 import { GapsComponent } from './signals/gaps/gaps.component';
+import { BullStoch307Component } from './signals/bull-stoch307/bull-stoch307.component';
 
 @NgModule({
     imports: [
@@ -205,10 +206,11 @@ import { GapsComponent } from './signals/gaps/gaps.component';
         UtilsDemoComponent,
         DocumentationComponent,
         SignalFilterComponent,
-        BullThreeArrowsComponent,
         TvChartContainerComponent,
         InvestipsChartPlatformComponent,
-        GapsComponent
+        BullThreeArrowsComponent,
+        GapsComponent,
+        BullStoch307Component
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
