@@ -1,52 +1,117 @@
 <div class="ui-g ui-fluid">
-    <app-signal-filter class="sig-filter" (applyFilter)="searchGaps($event, 'filter')"></app-signal-filter>
-    <div class="totalSignals">Total Gaps Signals: <strong>{{totalGaps}}</strong></div>
+    <app-signal-filter
+        class="sig-filter"
+        (applyFilter)="searchGaps($event, 'filter')"
+    ></app-signal-filter>
+    <div class="totalSignals">
+        Total Gaps Signals: <strong>{{ totalGaps }}</strong>
+    </div>
 
-    <p-dataTable [value]="groupedSignals" [(selection)]="selectedGapSignal" selectionMode="single" (onRowSelect)="onSignalSelect($event)"
-        expandableRows="true" scrollable="true" scrollHeight="500px">
+    <p-table [columns]="cols" [value]="groupedSignals" dataKey="symbol">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3em"></th>
+                <th *ngFor="let col of columns">
+                    {{ col.header }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template
+            pTemplate="body"
+            let-rowData
+            let-expanded="expanded"
+            let-columns="columns"
+        >
+            <tr>
+                <td>
+                    <a href="#" [pRowToggler]="rowData">
+                        <i
+                            [ngClass]="
+                                expanded
+                                    ? 'pi pi-chevron-down'
+                                    : 'pi pi-chevron-right'
+                            "
+                        ></i>
+                    </a>
+                </td>
+                <td *ngFor="let col of columns">
+                    {{ rowData[col.field] }}
+                </td>
+            </tr>
+        </ng-template>
 
-        <p-column expander="true" styleClass="col-icon"></p-column>
-        <p-column field="symbol" header="Symbol"></p-column>
-        <p-column field="close" header="Last Signal Close"></p-column>
-        <p-column field="quantity" header="Quantity"></p-column>
-        <p-column styleClass="col-button">
-            <ng-template let-sig="rowData" pTemplate="body">
-                <button type="button" pButton (click)="navigateToChart(sig)" icon="ui-icon-multiline-chart"></button>
-            </ng-template>
-        </p-column>
+        <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+            <tr>
+                <td [attr.colspan]="columns.length + 1">
+                    <div
+                        class="ui-g ui-fluid"
+                        style="font-size:16px;padding:20px"
+                    >
+                        <div class="ui-g-12 ui-md-3" style="text-align:center">
+                            <img
+                                [attr.alt]="rowData.brand"
+                                src="http://www.nasdaq.com/logos/{{
+                                    rowData.symbol
+                                }}.GIF"
+                            />
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <b>Vin:</b> {{ rowData.marketCap }}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Year:</b> {{ rowData.marketCap }}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Brand:</b> {{ rowData.sector }}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Color:</b> {{ rowData.industry }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <p-table [value]="rowData.signals">
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th>Close</th>
+                                        <th>Direction</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </ng-template>
 
-        <ng-template let-signal pTemplate="rowexpansion">
-
-            <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-3" style="text-align:center">
-                        <img *ngIf="signal.exchange === 'NasdaqNM'" src="http://www.nasdaq.com/logos/{{signal.symbol}}.GIF">
-
-                        <div *ngIf="signal.marketCap != 'n/a'"><span>Market Cap: </span> <strong>{{signal.marketCap}}</strong></div>
-                        <div *ngIf="signal.exchange != 'n/a'"><span>Exchange: </span> <strong>{{signal.exchange}}</strong></div>
-                        <div *ngIf="signal.sector != 'n/a'"><span>Sector: </span> <strong>{{signal.sector}}</strong></div>
-                        <div *ngIf="signal.industry != 'n/a'"><span>Industry: </span> <strong>{{signal.industry}}</strong></div>
-                    </div>
-                    <div class="ui-grid-col-9">
-                        <div class="ui-grid ui-grid-responsive ui-grid-pad">
-                            <p-dataTable [value]="signal.signals">
-                                <p-column field="close" header="Close"></p-column>
-                                <p-column field="direction" header="Direction"></p-column>
-
-                                <p-column header="Date">
-                                    <ng-template let-col let-signal="rowData" pTemplate="body">
-                                        <span>{{signal.dateStr | date :'longDate'}}</span>
-                                    </ng-template>
-                                </p-column>
-
-                            </p-dataTable>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-rowData
+                                    let-columns="columns"
+                                >
+                                    <tr>
+                                        <td>{{ rowData.close }}</td>
+                                        <td>{{ rowData.direction }}</td>
+                                        <td>
+                                            {{
+                                                rowData.dateStr
+                                                    | date: "longDate"
+                                            }}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
                     </div>
-                </div>
-            </div>
+                </td>
+            </tr>
         </ng-template>
-    </p-dataTable>
+    </p-table>
 
-    <p-paginator #paginator [style]="{'margin-top': '10px'}" class="sig-filter" [rows]="pageSize" [totalRecords]="totalGaps"
-        (onPageChange)="paginate($event)" pageLinkSize="10"></p-paginator>
+    <p-paginator
+        #paginator
+        [style]="{ 'margin-top': '10px' }"
+        class="sig-filter"
+        [rows]="pageSize"
+        [totalRecords]="totalGaps"
+        (onPageChange)="paginate($event)"
+        pageLinkSize="10"
+    ></p-paginator>
 </div>

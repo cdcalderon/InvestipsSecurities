@@ -6,11 +6,25 @@ import { ISignalsGapInfo } from '../shared/gap-signal-info';
 import * as _ from 'lodash';
 import { SelectItem, Paginator } from 'primeng/primeng';
 import { SecurityFilterCriteria } from '../../shared/models/security-filter-criteria.model';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
     selector: 'app-gaps',
     templateUrl: './gaps.component.html',
-    styleUrls: ['./gaps.component.css']
+    styleUrls: ['./gaps.component.css'],
+    animations: [
+        trigger('rowExpansionTrigger', [
+            state('void', style({
+                transform: 'translateX(-10%)',
+                opacity: 0
+            })),
+            state('active', style({
+                transform: 'translateX(0)',
+                opacity: 1
+            })),
+            transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+        ])
+    ]
 })
 export class GapsComponent implements OnInit {
 
@@ -25,6 +39,7 @@ export class GapsComponent implements OnInit {
     selectedGapSignal: IGapSignal;
     groupedSignals: any;
     filterCriteria: SecurityFilterCriteria;
+    cols: any[];
 
     exchanges: SelectItem[] = [
         { label: 'NYSE', value: 'nyse' },
@@ -37,7 +52,13 @@ export class GapsComponent implements OnInit {
         private _router: Router) { }
 
     ngOnInit() {
-        let pagingInfo = {
+        this.cols = [
+            { field: 'symbol', header: 'Symbol' },
+            { field: 'close', header: 'Last Signal Close' },
+            { field: 'quantity', header: 'Quantity' }
+        ];
+
+        const pagingInfo = {
             pageSize: this.pageSize,
             currentPage: this.currentPage
         };
