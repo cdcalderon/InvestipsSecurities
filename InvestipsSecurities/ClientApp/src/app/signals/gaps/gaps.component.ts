@@ -108,7 +108,7 @@ export class GapsComponent implements OnInit {
                     console.log(this.totalGaps);
                     console.log(this.groupedSignals);
 
-                    this._rightPanelService.signalsChanged(this.groupedSignals);
+                    this.setRightPanelInformation();
                 },
                 error => (this.errorMessage = <any>error)
             );
@@ -166,7 +166,7 @@ export class GapsComponent implements OnInit {
                     console.log(this.totalGaps);
                     console.log(this.groupedSignals);
 
-                    this._rightPanelService.signalsChanged(this.groupedSignals);
+                    this.setRightPanelInformation();
                     // this.groupedSignals = this.signalAppender(this.currentPage,
                     //     this.totalGaps, this.pageSize, this.groupedSignals);
                 },
@@ -195,5 +195,13 @@ export class GapsComponent implements OnInit {
         }
 
         return queryFilter;
+    }
+
+    setRightPanelInformation() {
+        this._rightPanelService.signalsChanged(this.groupedSignals);
+        sessionStorage.setItem(
+            "rightPanelSignals",
+            JSON.stringify(this.groupedSignals)
+        );
     }
 }

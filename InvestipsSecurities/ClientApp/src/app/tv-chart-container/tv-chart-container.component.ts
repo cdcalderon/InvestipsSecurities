@@ -140,15 +140,17 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
                 .createButton()
                 .attr("title", "Click to show a notification popup")
                 .addClass("apply-common-tooltip")
-                .on("click", () =>
-                    tvWidget.showNoticeDialog({
-                        title: "Notification",
-                        body:
-                            "TradingView Charting Library API works correctly",
-                        callback: () => {
-                            console.log("Noticed!");
-                        }
-                    })
+                .on(
+                    "click",
+                    () => tvWidget.setSymbol("AAPL", "1000", null)
+                    // tvWidget.showNoticeDialog({
+                    //     title: "Notification",
+                    //     body:
+                    //         "TradingView Charting Library API works correctly",
+                    //     callback: () => {
+                    //         console.log("Noticed!");
+                    //     }
+                    // })
                 );
 
             button[0].innerHTML = "Check API";

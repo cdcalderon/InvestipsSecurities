@@ -10,7 +10,11 @@
             </div>
 
             <div class="layout-rightpanel-content">
-                <div *ngFor="let signal of signalsInScope">
+                <div
+                    *ngFor="let signal of signalsInScope"
+                    style="cursor: pointer"
+                    (click)="onSignalSelected(signal)"
+                >
                     {{ signal.symbol }}
                 </div>
             </div>
